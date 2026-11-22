@@ -39,6 +39,12 @@ spring:
               predicates:
                 - Path=/productos/**, /categorias/**
 
+            # 3. SERVICIO CARRITO (carrito de compras de cada usuario)
+            - id: ruta-carrito
+              uri: lb://carrito
+              predicates:
+                - Path=/carrito, /carrito/**
+
 eureka:
   client:
     register-with-eureka: true
