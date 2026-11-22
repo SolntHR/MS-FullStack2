@@ -1,0 +1,52 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+          default-filters:
+            - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
+
+          globalcors:
+            cors-configurations:
+              '[/**]':
+                allowed-origins: ${FRONTEND_URL:http://localhost:5173}
+                allowed-methods:
+                  - GET
+                  - POST
+                  - PATCH
+                  - DELETE
+                  - OPTIONS
+                allowed-headers: "*"
+                allow-credentials: true
+                max-age: 3600
+
+          routes:
+            # 1. SERVICIO USUARIOS (registro, login, perfil y administración)
+            - id: ruta-usuarios
+              uri: lb://usuarios
+              predicates:
+                - Path=/auth/**, /usuarios/**
+
+            # 2. SERVICIO INVENTARIO (productos y categorías)
+            - id: ruta-inventario
+              uri: lb://inventario
+              predicates:
+                - Path=/productos/**, /categorias/**
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
+
+  instance:
+    prefer-ip-address: ${EUREKA_PREFER_IP_ADDRESS:false}
+    hostname: ${EUREKA_INSTANCE_HOSTNAME:localhost}
+    instance-id: ${EUREKA_INSTANCE_ID:${spring.application.name}:${server.port}}
