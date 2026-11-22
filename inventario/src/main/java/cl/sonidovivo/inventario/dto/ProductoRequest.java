@@ -16,7 +16,7 @@ public record ProductoRequest(
     @NotBlank(message = "La marca es obligatoria.") @Size(max = 60) String marca,
     @NotBlank(message = "El modelo es obligatorio.") @Size(max = 60) String modelo,
     @NotNull(message = "El precio es obligatorio.") @Min(value = 1, message = "El precio mínimo debe ser 1.") Integer precio,
-    @NotNull(message = "El stock es obligatorio.") @Min(value = 0, message = "El stock no puede ser negativo.") Integer stock,
+    @NotNull(message = "El stock es obligatorio.") @Min(value = 1, message = "El stock debe ser mínimo 1.") Integer stock,
     @Size(max = 250, message = "La descripción no puede superar los 250 caracteres.") String descripcion,
     String imagen
 ) {
