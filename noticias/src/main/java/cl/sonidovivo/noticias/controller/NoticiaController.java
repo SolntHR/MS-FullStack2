@@ -8,11 +8,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import cl.sonidovivo.noticias.dto.NoticiaPatchRequest;
 import cl.sonidovivo.noticias.dto.NoticiaRequest;
 import cl.sonidovivo.noticias.dto.NoticiaResponse;
 import cl.sonidovivo.noticias.service.NoticiaService;
@@ -53,10 +54,11 @@ public class NoticiaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.crear(req));
     }
 
-    @Operation(summary = "Editar noticia", description = "Acceso: Administrador.")
+    @Operation(summary = "Editar noticia", description = "PATCH: solo se actualizan los campos enviados. Acceso: Administrador.")
     @SecurityRequirement(name = "bearerAuth")
-    @PutMapping("/{id}")
-    public NoticiaResponse actualizar(@PathVariable Long id, @Valid @RequestBody NoticiaRequest req) {
+    @ApiResponse(responseCode = "404", description = "Noticia no encontrada")
+    @PatchMapping("/{id}")
+    public NoticiaResponse actualizar(@PathVariable Long id, @Valid @RequestBody NoticiaPatchRequest req) {
         return service.actualizar(id, req);
     }
 

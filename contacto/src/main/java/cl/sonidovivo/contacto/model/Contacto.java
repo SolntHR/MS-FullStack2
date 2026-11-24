@@ -43,6 +43,13 @@ public class Contacto {
     @Column(name = "fecha_creacion", nullable = false, updatable = false)
     private LocalDateTime fechaCreacion;
 
+    /** Respuesta escrita por el administrador (null mientras el mensaje está pendiente) */
+    @Column(length = 1000)
+    private String respuesta;
+
+    @Column(name = "fecha_respuesta")
+    private LocalDateTime fechaRespuesta;
+
     public Contacto(String nombre, String correo, String mensaje) {
         this.nombre = nombre;
         this.correo = correo;

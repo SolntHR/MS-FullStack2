@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import cl.sonidovivo.noticias.dto.NoticiaPatchRequest;
 import cl.sonidovivo.noticias.dto.NoticiaRequest;
 import cl.sonidovivo.noticias.dto.NoticiaResponse;
 import cl.sonidovivo.noticias.exception.RecursoNoEncontradoException;
@@ -40,15 +41,16 @@ public class NoticiaService {
         return NoticiaResponse.desde(repository.save(noticia));
     }
 
+    /** PATCH: solo cambia los campos que vienen en la petición (los null se ignoran) */
     @Transactional
-    public NoticiaResponse actualizar(Long id, NoticiaRequest req) {
+    public NoticiaResponse actualizar(Long id, NoticiaPatchRequest req) {
         Noticia noticia = buscar(id);
-        noticia.setCategoria(req.categoria().trim());
-        noticia.setTitulo(req.titulo().trim());
-        noticia.setFecha(req.fecha());
-        noticia.setResumen(req.resumen().trim());
-        noticia.setContenido(req.contenido().trim());
-        noticia.setImagen(limpiar(req.imagen()));
+        if (req.categoria() != null) noticia.setCategoria(req.categoria().trim());
+        if (req.titulo() != null) noticia.setTitulo(req.titulo().trim());
+        if (req.fecha() != null) noticia.setFecha(req.fecha());
+        if (req.resumen() != null) noticia.setResumen(req.resumen().trim());
+        if (req.contenido() != null) noticia.setContenido(req.contenido().trim());
+        if (req.imagen() != null) noticia.setImagen(limpiar(req.imagen())); // "" quita la imagen
         return NoticiaResponse.desde(repository.save(noticia));
     }
 
