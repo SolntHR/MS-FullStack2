@@ -45,6 +45,18 @@ spring:
               predicates:
                 - Path=/carrito, /carrito/**
 
+            # 4. SERVICIO CONTACTO (envío y administración de mensajes)
+            - id: ruta-contacto
+              uri: lb://contacto
+              predicates:
+                - Path=/contactos, /contactos/**
+
+            # 5. SERVICIO NOTICIAS (publicaciones del blog)
+            - id: ruta-noticias
+              uri: lb://noticias
+              predicates:
+                - Path=/noticias, /noticias/**
+
 eureka:
   client:
     register-with-eureka: true
