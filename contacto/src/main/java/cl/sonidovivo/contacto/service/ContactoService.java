@@ -32,11 +32,6 @@ public class ContactoService {
                 .toList();
     }
 
-    /**
-     * Registra un mensaje. Si quien escribe tiene sesión (correoSesion distinto de null),
-     * se usa el correo de su cuenta y no el del formulario: así nadie puede enviar mensajes
-     * a nombre de otra cuenta registrada.
-     */
     @Transactional
     public ContactoResponse crear(ContactoRequest req, String correoSesion) {
         String correo = correoSesion != null ? correoSesion : req.correo().trim();
@@ -51,7 +46,6 @@ public class ContactoService {
         return ContactoResponse.desde(repository.save(contacto));
     }
 
-    /** El administrador responde: se guarda el texto, la fecha y el mensaje pasa a ATENDIDO */
     @Transactional
     public ContactoResponse responder(Long id, RespuestaContactoRequest req) {
         Contacto contacto = buscar(id);
@@ -61,7 +55,6 @@ public class ContactoService {
         return ContactoResponse.desde(repository.save(contacto));
     }
 
-    /** Mensajes del usuario con sesión. El correo viene del token, no de un parámetro */
     @Transactional(readOnly = true)
     public List<ContactoResponse> misMensajes(String correo) {
         return repository.findByCorreoIgnoreCaseOrderByFechaCreacionDesc(correo).stream()

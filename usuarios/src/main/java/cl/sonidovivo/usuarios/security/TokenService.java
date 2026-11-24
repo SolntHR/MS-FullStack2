@@ -22,7 +22,6 @@ public class TokenService {
         this.duracionSegundos = duracionSegundos;
     }
 
-    /** El "sub" del token es el id del usuario y el claim "rol" es CLIENTE o ADMINISTRADOR */
     public String generarToken(Usuario usuario) {
         Instant ahora = Instant.now();
         JwtClaimsSet claims = JwtClaimsSet.builder()

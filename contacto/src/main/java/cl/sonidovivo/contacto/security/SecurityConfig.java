@@ -28,7 +28,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/contactos").permitAll()
                         .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/error").permitAll()
-                        // Va antes que la regla de admin: Spring aplica la primera regla que coincide
                         .requestMatchers(HttpMethod.GET, "/contactos/mios").authenticated()
                         .requestMatchers(HttpMethod.GET, "/contactos", "/contactos/**").hasRole("ADMINISTRADOR")
                         .requestMatchers(HttpMethod.PATCH, "/contactos/**").hasRole("ADMINISTRADOR")

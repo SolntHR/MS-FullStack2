@@ -41,7 +41,6 @@ public class NoticiaService {
         return NoticiaResponse.desde(repository.save(noticia));
     }
 
-    /** PATCH: solo cambia los campos que vienen en la petición (los null se ignoran) */
     @Transactional
     public NoticiaResponse actualizar(Long id, NoticiaPatchRequest req) {
         Noticia noticia = buscar(id);
@@ -50,7 +49,7 @@ public class NoticiaService {
         if (req.fecha() != null) noticia.setFecha(req.fecha());
         if (req.resumen() != null) noticia.setResumen(req.resumen().trim());
         if (req.contenido() != null) noticia.setContenido(req.contenido().trim());
-        if (req.imagen() != null) noticia.setImagen(limpiar(req.imagen())); // "" quita la imagen
+        if (req.imagen() != null) noticia.setImagen(limpiar(req.imagen()));
         return NoticiaResponse.desde(repository.save(noticia));
     }
 

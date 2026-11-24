@@ -36,7 +36,6 @@ public class ContactoController {
         this.service = service;
     }
 
-    /** Correo de la cuenta según el token, o null si quien llama no tiene sesión */
     private static String correoDe(Jwt jwt) {
         return jwt == null ? null : jwt.getClaimAsString("correo");
     }

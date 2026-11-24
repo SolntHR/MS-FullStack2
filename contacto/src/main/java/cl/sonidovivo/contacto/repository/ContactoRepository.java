@@ -8,6 +8,5 @@ import cl.sonidovivo.contacto.model.Contacto;
 
 public interface ContactoRepository extends JpaRepository<Contacto, Long> {
 
-    /** Mensajes enviados con un correo, del más reciente al más antiguo */
     List<Contacto> findByCorreoIgnoreCaseOrderByFechaCreacionDesc(String correo);
 }

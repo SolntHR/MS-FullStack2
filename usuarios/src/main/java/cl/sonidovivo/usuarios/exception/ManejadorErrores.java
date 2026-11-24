@@ -67,7 +67,6 @@ public class ManejadorErrores {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> general(Exception ex) {
-        // Errores propios de Spring MVC (ruta inexistente, método no permitido, parámetro faltante...)
         if (ex instanceof org.springframework.web.ErrorResponse errorSpring) {
             int status = errorSpring.getStatusCode().value();
             String detalle = errorSpring.getBody().getDetail();

@@ -29,31 +29,26 @@ spring:
                 max-age: 3600
 
           routes:
-            # 1. SERVICIO USUARIOS (registro, login, perfil y administración)
             - id: ruta-usuarios
               uri: lb://usuarios
               predicates:
                 - Path=/auth/**, /usuarios/**
 
-            # 2. SERVICIO INVENTARIO (productos y categorías)
             - id: ruta-inventario
               uri: lb://inventario
               predicates:
                 - Path=/productos/**, /categorias/**
 
-            # 3. SERVICIO CARRITO (carrito de compras de cada usuario)
             - id: ruta-carrito
               uri: lb://carrito
               predicates:
                 - Path=/carrito, /carrito/**
 
-            # 4. SERVICIO CONTACTO (envío y administración de mensajes)
             - id: ruta-contacto
               uri: lb://contacto
               predicates:
                 - Path=/contactos, /contactos/**
 
-            # 5. SERVICIO NOTICIAS (publicaciones del blog)
             - id: ruta-noticias
               uri: lb://noticias
               predicates:

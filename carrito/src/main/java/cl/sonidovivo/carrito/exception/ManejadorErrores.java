@@ -44,13 +44,11 @@ public class ManejadorErrores {
         return responder(HttpStatus.NOT_FOUND, ex.getMessage());
     }
 
-    // 409: no hay stock suficiente
     @ExceptionHandler(ConflictoException.class)
     public ResponseEntity<ErrorResponse> conflicto(ConflictoException ex) {
         return responder(HttpStatus.CONFLICT, ex.getMessage());
     }
 
-    // 503: inventario no respondió
     @ExceptionHandler(ServicioNoDisponibleException.class)
     public ResponseEntity<ErrorResponse> servicioNoDisponible(ServicioNoDisponibleException ex) {
         return responder(HttpStatus.SERVICE_UNAVAILABLE, ex.getMessage());
