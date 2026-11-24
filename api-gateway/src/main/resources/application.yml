@@ -15,11 +15,12 @@ spring:
           globalcors:
             cors-configurations:
               '[/**]':
-                allowed-origins: ${FRONTEND_URL:http://localhost:5173}
+                allowed-origins: ${FRONTEND_URL:http://localhost:5501}
                 allowed-methods:
                   - GET
                   - POST
                   - PATCH
+                  - PUT
                   - DELETE
                   - OPTIONS
                 allowed-headers: "*"
